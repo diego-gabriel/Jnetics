@@ -24,26 +24,12 @@ public class Main {
 			values.add(b);
 		}
 		
-		ArrayList <Chromosome> initialPopulation, remainPopulation;
-		initialPopulation = new ArrayList<Chromosome>();
-		ArrayList <Boolean> gens = new ArrayList<Boolean>();
+		ArrayList <Chromosome> remainPopulation;
+		KnapsackInitializer initializer = new KnapsackInitializer(pesos, values, capacity);
 		
-		for (int i = 0; i < n; i++){
-			gens.add(false);
-		}
-		initialPopulation.add(new Knapsack(gens, pesos, values, capacity));
-
-		gens = new ArrayList<Boolean>();
-		
-		for (int i = 0; i < n; i++){
-			gens.add(true);
-		}
-		
-		initialPopulation.add(new Knapsack(gens, pesos, values, capacity));
-		
-		Algorithm jnetic = new Algorithm(initialPopulation, 100, 0.05, 0.65);
+		Algorithm jnetic = new Algorithm(initializer.generateInitialPopulation(), 100, 0.05, 0.65);
 		System.out.println("init");
-		jnetic.run();
+		jnetic.run(100);
 		System.out.println("fin");
 		remainPopulation = jnetic.getPopulation();
 		

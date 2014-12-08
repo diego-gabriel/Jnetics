@@ -16,9 +16,9 @@ public class Algorithm {
 		this.mateProbability = mateProbability;
 	}
 	
-	public void run(){
+	public void run(int nOfIterations){
 		int i = 0;
-		while (i < 1000){
+		while (i < nOfIterations){
 			i++;
 			ArrayList <Chromosome> newPopulation;
 			newPopulation = new ArrayList<Chromosome>();
