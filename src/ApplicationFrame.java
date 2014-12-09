@@ -18,11 +18,11 @@ public class ApplicationFrame extends JFrame{
 	private ApplicationController controller;
 	private JPanel pane;
 	private JButton start, stop, llenarItems;
-	private JLabel nCapacidad, nCantidad, mensaje;
+	private JLabel nCapacidad, nCantidad, mensaje, nPeso, nValor;
 	private JTextField capacidad, cantidad;
 	private PaneItems itemsPane;
 	private JTextArea consola;
-	private JScrollPane sp, scrollConsola;
+	private JScrollPane scrollConsola;
 	
 	public ApplicationFrame(ApplicationController controller){
 		setTitle("Knapsack AG");
@@ -35,6 +35,8 @@ public class ApplicationFrame extends JFrame{
 		itemsPane = new PaneItems(controller);
 		nCapacidad = new JLabel("Capacidad:");
 		nCantidad = new JLabel("Cantidad:");
+		nPeso = new JLabel("Peso");
+		nValor = new JLabel("Valor");
 		mensaje = new JLabel("Los datos deben ser positivos.");
 		capacidad = new JTextField("1");
 		cantidad = new JTextField("1");
@@ -43,7 +45,6 @@ public class ApplicationFrame extends JFrame{
 		llenarItems = new JButton("Llenar Datos");
 		consola = new JTextArea();
 		consola.setEditable(false);
-		sp = new JScrollPane(itemsPane);
 		scrollConsola = new JScrollPane(consola);
 		
 		pane.setLayout(null);
@@ -54,18 +55,22 @@ public class ApplicationFrame extends JFrame{
 		
 		nCapacidad.setBounds(10, 40, 70, 25);
 		nCantidad.setBounds(10, 70, 70, 25);
+		nPeso.setBounds(100, 100, 80, 25);
+		nValor.setBounds(180, 100, 80, 25);
 		mensaje.setBounds(10, 10, 370, 25);
 		capacidad.setBounds(90, 40, 70, 25);
 		cantidad.setBounds(90, 70, 70, 25);
 		start.setBounds(310, 40, 70, 25);
 		stop.setBounds(310, 70, 70, 25);
 		llenarItems.setBounds(180, 70, 110, 25);
-		sp.setBounds(10, 100, 250, 200);
+		itemsPane.setBounds(10, 130, 250, 160);
 		scrollConsola.setBounds(10, 310, 390, 150);
 		
-		pane.add(sp);
+		pane.add(itemsPane);
 		pane.add(nCapacidad);
 		pane.add(nCantidad);
+		pane.add(nPeso);
+		pane.add(nValor);
 		pane.add(mensaje);
 		pane.add(capacidad);
 		pane.add(cantidad);

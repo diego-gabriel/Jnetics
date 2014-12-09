@@ -1,4 +1,7 @@
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
@@ -9,43 +12,44 @@ import javax.swing.*;
 
 public class PaneItems extends JPanel{
 	
+	private JPanel pane;
 	private ApplicationController controller;
 	private ArrayList<JTextField> pesos;
 	private ArrayList<JTextField> valores;
 	
 	public PaneItems(ApplicationController controller){
 		this.controller = controller;
+		pane = new JPanel();
 		pesos = new ArrayList<>();
 		valores = new ArrayList<>();
-		setLayout(null);
+		setLayout(new BorderLayout(10, 10));
 	}
 	
 	public void init(int n){
 		removeAll();
-		JLabel nPeso = new JLabel("Peso");
-		JLabel nValor = new JLabel("Valor");
-		nPeso.setBounds(25, 10, 80, 25);
-		nValor.setBounds(85, 10, 80, 25);
+		pane.removeAll();
+		pesos.clear();
+		valores.clear();
 		
-		add(nPeso);
-		add(nValor);
+		pane.setLayout(new GridLayout(n, 3));
 		
 		int x = 10, y = 40;
 		for(int i = 0; i < n; i++){
 			JLabel label = new JLabel("" + (i + 1));
 			label.setBounds(x, y, 10, 25);
-			add(label);
+			pane.add(label);
 			JTextField peso = new JTextField("1.0");
 			peso.setBounds(x + 15, y, 50, 25);
-			add(peso);
+			pane.add(peso);
 			pesos.add(peso);
 			JTextField valor = new JTextField("1.0");
 			valor.setBounds(x + 75, y, 50, 25);
-			add(valor);
+			pane.add(valor);
 			valores.add(valor);
 			addFocusListener(peso, valor);
 			y += 30;
 		}
+		add(new JScrollPane(pane));
 	}
 
 	private void addFocusListener(final JTextField peso, final JTextField valor) {
