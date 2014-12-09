@@ -22,7 +22,7 @@ public class ApplicationFrame extends JFrame{
 	private JTextField capacidad, cantidad;
 	private PaneItems itemsPane;
 	private JTextArea consola;
-	private JScrollPane sp;
+	private JScrollPane sp, scrollConsola;
 	
 	public ApplicationFrame(ApplicationController controller){
 		setTitle("Knapsack AG");
@@ -32,10 +32,10 @@ public class ApplicationFrame extends JFrame{
 		
 		this.controller = controller;
 		pane = new JPanel();
-		itemsPane = new PaneItems();
+		itemsPane = new PaneItems(controller);
 		nCapacidad = new JLabel("Capacidad:");
 		nCantidad = new JLabel("Cantidad:");
-		mensaje = new JLabel("Los datos deben ser positivos");
+		mensaje = new JLabel("Los datos deben ser positivos.");
 		capacidad = new JTextField("1");
 		cantidad = new JTextField("1");
 		start = new JButton("Start");
@@ -44,6 +44,7 @@ public class ApplicationFrame extends JFrame{
 		consola = new JTextArea();
 		consola.setEditable(false);
 		sp = new JScrollPane(itemsPane);
+		scrollConsola = new JScrollPane(consola);
 		
 		pane.setLayout(null);
 		setContentPane(pane);
@@ -60,7 +61,7 @@ public class ApplicationFrame extends JFrame{
 		stop.setBounds(310, 70, 70, 25);
 		llenarItems.setBounds(180, 70, 110, 25);
 		sp.setBounds(10, 100, 250, 200);
-		consola.setBounds(10, 310, 390, 150);
+		scrollConsola.setBounds(10, 310, 390, 150);
 		
 		pane.add(sp);
 		pane.add(nCapacidad);
@@ -71,7 +72,7 @@ public class ApplicationFrame extends JFrame{
 		pane.add(start);
 		pane.add(stop);
 		pane.add(llenarItems);
-		pane.add(consola);
+		pane.add(scrollConsola);
 	}
 	
 	private void addFocusListeners() {
@@ -79,17 +80,9 @@ public class ApplicationFrame extends JFrame{
 			
 			@Override
 			public void focusLost(FocusEvent arg0) {
-				String input = capacidad.getText();
-				if(!controller.isvalide(input)){
-					mensaje.setText("Datos no validos");
-					bloquearBotones();
-				}
-				else{
-					if(controller.isvalide(cantidad.getText())){
-						desbloquearBotones();
-						mensaje.setText("Datos validos :)");
-					}
-				}
+				String capacity = capacidad.getText();
+				String quantity = cantidad.getText();
+				controller.validateCapacityQuantity(capacity, quantity);
 			}
 
 			@Override
@@ -101,17 +94,9 @@ public class ApplicationFrame extends JFrame{
 			
 			@Override
 			public void focusLost(FocusEvent arg0) {
-				String input = cantidad.getText();
-				if(!controller.isvalide(input)){
-					mensaje.setText("Datos no validos");
-					bloquearBotones();
-				}
-				else{
-					if(controller.isvalide(capacidad.getText())){
-						desbloquearBotones();
-						mensaje.setText("Datos validos :)");
-					}
-				}
+				String capacity = capacidad.getText();
+				String quantity = cantidad.getText();
+				controller.validateCapacityQuantity(capacity, quantity);
 			}
 			
 			@Override
@@ -121,13 +106,13 @@ public class ApplicationFrame extends JFrame{
 		
 	}
 	
-	private void desbloquearBotones() {
+	public void enableButtons() {
 		start.setEnabled(true);
 		stop.setEnabled(true);
 		llenarItems.setEnabled(true);
 	}
 
-	private void bloquearBotones() {
+	public void disableButtons() {
 		start.setEnabled(false);
 		stop.setEnabled(false);
 		llenarItems.setEnabled(false);
@@ -139,8 +124,8 @@ public class ApplicationFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("start");
-				
+				int n = Integer.parseInt(capacidad.getText());
+				controller.startAG(n, itemsPane.getPesos(), itemsPane.getValores());
 			}
 		});
 		
@@ -164,5 +149,13 @@ public class ApplicationFrame extends JFrame{
 			}
 		});
 		
+	}
+
+	public void setMessage(String string) {
+		mensaje.setText(string);
+	}
+
+	public void setTextArea(String string) {
+		consola.setText(string);
 	}
 }

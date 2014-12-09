@@ -4,12 +4,12 @@ import java.util.ArrayList;
 public class Knapsack implements Chromosome{
 
 	private ArrayList <Boolean> gens;
-	private ArrayList <Integer> weightList;
-	private ArrayList <Integer> valueList;
+	private ArrayList <Double> weightList;
+	private ArrayList <Double> valueList;
 	private int capacity;
 	
-	public Knapsack(ArrayList<Boolean> gens, ArrayList<Integer> weightList,  
-			ArrayList<Integer> valueList, int capacity){
+	public Knapsack(ArrayList<Boolean> gens, ArrayList<Double> weightList,  
+			ArrayList<Double> valueList, int capacity){
 		this.gens = gens;
 		this.weightList = weightList;
 		this.valueList = valueList;
@@ -35,17 +35,17 @@ public class Knapsack implements Chromosome{
 	}
 
 	@Override
-	public int eval() {
-		int totalWeight = calculateWeight();
-		int totalValue = calculateValue();
+	public double eval() {
+		double totalWeight = calculateWeight();
+		double totalValue = calculateValue();
 		
 		if (totalWeight > capacity)
-			totalValue = capacity - totalWeight;
+			totalValue = (double)capacity - totalWeight;
 		return totalValue;
 	}
 	
-	private int calculateWeight(){
-		int totalWeight = 0;	
+	private double calculateWeight(){
+		double totalWeight = 0.0;	
 		
 		for (int i = 0; i < gens.size(); i++){
 			if (gens.get(i)){
@@ -55,8 +55,8 @@ public class Knapsack implements Chromosome{
 		return totalWeight;
 	}
 	
-	private int calculateValue(){
-		int totalValue = 0;	
+	private double calculateValue(){
+		double totalValue = 0.0;	
 		
 		for (int i = 0; i < gens.size(); i++){
 			if (gens.get(i)){

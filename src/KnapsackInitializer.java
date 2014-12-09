@@ -3,11 +3,11 @@ import java.util.ArrayList;
 
 public class KnapsackInitializer {
 	
-	private ArrayList<Integer> pesos;
-	private ArrayList<Integer> values;
+	private ArrayList<Double> pesos;
+	private ArrayList<Double> values;
 	private int capacity;
 	
-	public KnapsackInitializer(ArrayList<Integer> pesos, ArrayList<Integer> values, int capacity){
+	public KnapsackInitializer(ArrayList<Double> pesos, ArrayList<Double> values, int capacity){
 		this.pesos = pesos;
 		this.values = values;
 		this.capacity = capacity;

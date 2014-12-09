@@ -25,20 +25,20 @@ public class Main {
 		}
 		
 		ArrayList <Chromosome> remainPopulation;
-		KnapsackInitializer initializer = new KnapsackInitializer(pesos, values, capacity);
-		
-		Algorithm jnetic = new Algorithm(initializer.generateInitialPopulation(), 100, 0.05, 0.65);
-		System.out.println("init");
-		jnetic.run(100);
-		System.out.println("fin");
-		remainPopulation = jnetic.getPopulation();
-		
-		for(Chromosome c : remainPopulation){
-			if (c instanceof Knapsack){
-				Knapsack aSubject = (Knapsack) c;
-				System.out.println(aSubject.toString());
-			}
-		}
+//		KnapsackInitializer initializer = new KnapsackInitializer(pesos, values, capacity);
+//		
+//		Algorithm jnetic = new Algorithm(initializer.generateInitialPopulation(), 100, 0.05, 0.65);
+//		System.out.println("init");
+//		jnetic.run(100);
+//		System.out.println("fin");
+//		remainPopulation = jnetic.getPopulation();
+//		
+//		for(Chromosome c : remainPopulation){
+//			if (c instanceof Knapsack){
+//				Knapsack aSubject = (Knapsack) c;
+//				System.out.println(aSubject.toString());
+//			}
+//		}
 	}
 
 }
